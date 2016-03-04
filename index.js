@@ -55,12 +55,48 @@ function trackBot(bot) {
 }
 
 controller.on('slash_command',function(bot,message) {
-    tfl.tube.status()
+    const query = message.text;
+    const isStation = utils.isStation(query);
+    const isLine = utils.isLine(query);
+
+    if(isStation){
+        tfl.tube.stations.status({
+            'stations': [utils.mapStationName(query)]
+        })
         .then(function(status){
-            var reply = status.map(function(obj){return obj.name + ": " + obj.status + ((obj.incident)? ', `' + obj.statusDescription + '`':'') }).join("\n");
-            console.log(status);
+            var reply = status
+                        .map(function(obj){
+                            return obj.name + ": " + obj.status + ((obj.incident)? ', `' + obj.statusDescription + '`':'')
+                        })
+                        .join("\n");
             bot.replyPublic(message, reply);
         });
+    }
+    if(!isStation && isLine){
+        tfl.tube.status()
+        .then(function(status){
+            var reply = status
+                        .filter(function(obj){
+                            return obj.name === utils.mapLineName(query)
+                        })
+                        .map(function(obj){
+                            return obj.name + ": " + obj.status + ((obj.incident)? ', `' + obj.statusDescription + '`':'')
+                        })
+                        .join("\n");
+            bot.replyPublic(message, reply);
+        });
+    }
+    if(!isStation && !isLine){
+        tfl.tube.status()
+        .then(function(status){
+            var reply = status
+                        .map(function(obj){
+                            return obj.name + ": " + obj.status + ((obj.incident)? ', `' + obj.statusDescription + '`':'')
+                        })
+                        .join("\n");
+            bot.replyPublic(message, reply);
+        });
+    }
 });
 
 controller.storage.teams.all(function(err,teams) {
