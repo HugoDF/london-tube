@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
       redisStorage.users.all(function(err, users){
         var today = new Date(Date.now());
         var todayFormatted = utils.formatDate(today);
-        res.render('index', {teams: teams, users: users, today: todayFormatted});
+        res.render('index', {title: "London Tube for Slack", teams: teams, users: users, today: todayFormatted});
       });
     }
     else{
