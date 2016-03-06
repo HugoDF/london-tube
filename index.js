@@ -2,18 +2,17 @@ require('dotenv').config();
 
 /* Uses the slack button feature to offer a real time bot to multiple teams */
 var Botkit = require('botkit');
-var redisConfig = {"url": process.env.REDIS_URL}
+var redisConfig =
+{
+    "url": process.env.REDIS_URL,
+    "namespace": process.env.REDIS_NAMESPACE
+};
 var redisStorage = require('botkit/lib/storage/redis_storage')(redisConfig);
 var utils = require('./utils');
 var path = require('path');
 var hbs = require('./utils/helpers.js');
 var express = require('express');
 var tfl = require('tfl');
-
-if(process.env.LOCAL_REDIS){
-  // reset redis to defaults
-  redisStorage = require('botkit/lib/storage/redis_storage')();
-}
 
 if (!process.env.SLACK_CLIENT_ID || !process.env.SLACK_CLIENT_SECRET || !process.env.BOTKIT_PORT) {
   console.log('Error: Specify SLACK_CLIENT_ID SLACK_CLIENT_SECRET and BOTKIT_PORT in environment');
