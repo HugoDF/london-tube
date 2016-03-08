@@ -1,4 +1,10 @@
-<h1>General info:</h1>
-{{#if teams.length}}
-<div>{{teams.length}} active teams</div>
-{{/if}}
+<div class="card">
+    <h1>London Tube</h1>
+    <div><a href="/" class="logo">&#x1F687;</a></div>
+    {{{slackbtn}}}
+    {{#if teams.length}}
+    <h2>{{teams.length}} active teams</h2>
+    {{else}}
+    <h2>No active teams yet</h2>
+    {{/if}}
+</div>

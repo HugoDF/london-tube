@@ -14,13 +14,11 @@ router.get('/', function(req, res, next) {
   redisStorage.teams.all(function(err, teams){
     if(!err&&teams != null){
       redisStorage.users.all(function(err, users){
-        var today = new Date(Date.now());
-        var todayFormatted = utils.formatDate(today);
-        res.render('index', {teams: teams, users: users, today: todayFormatted});
+        res.render('index', {teams: teams, users: users,});
       });
     }
     else{
-      res.render('error');
+      res.render('index', { teams: [], users: []});
     }
   });
 });
