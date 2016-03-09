@@ -20,5 +20,8 @@ router.get('/', function(req, res, next) {
     }
   });
 });
+router.get('/privacy', function(req, res, next){
+    res.render('privacy-policy', {title: 'Privacy Policy'})
+});
 
 module.exports = router;
