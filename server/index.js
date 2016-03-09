@@ -9,13 +9,11 @@ var redisConfig =
 var redisStorage = require('botkit/lib/storage/redis_storage')(redisConfig);
 var utils = require('../utils');
 
-/* GET users listing. */
 router.get('/', function(req, res, next) {
+  /* GET teams listing just for the number */
   redisStorage.teams.all(function(err, teams){
     if(!err&&teams != null){
-      redisStorage.users.all(function(err, users){
-        res.render('index', {teams: teams, users: users,});
-      });
+      res.render('index', {teams: teams, users: [], title: ''});
     }
     else{
       res.render('index', { teams: [], users: []});
