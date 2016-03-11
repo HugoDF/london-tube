@@ -9,9 +9,29 @@
     {{/if}}
     <div class="description">
         <p>London Underground status information straight from TFL in one command.</p>
-        <p>Just <code>/tube</code></p>
+        <p>Just <code>/tube</code> for all lines</p>
+        <p>For a specific station/line: <code>/tube Euston</code> or <code>/tube District</code></p>
     </div>
-    <img style="max-width: 100%" src="/images/demo.gif"/>
+    <div class="demo-section">
+        <img class="demo" src="/images/demo.gif"/>
+        <div class="current-status">
+            <h2 class="current-status-heading">Current Tube Status</h2>
+            {{#each tubeStatus}}
+                <div class="status-indicator">
+                    <span class="display:inline-block">{{name}}:</span>
+                        {{#if incident}}
+                            <span class="incident-text" >
+                                {{statusDescription}}
+                            </span>
+                        {{else}}
+                            <span class="good-service-text">
+                                {{status}}
+                            </span>
+                        {{/if}}
+                </div>
+            {{/each}}
+        </div>
+    </div>
     <div>
         <a class="twitter-share-button"
       href="https://twitter.com/intent/tweet?text=London%20Tube%20status%20in%20Slack!&url=https%3A%2F%2Ftube.awebots.com&via=hugo__df">

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+const tfl = require('tfl');
 var redisConfig =
 {
     "url": process.env.REDIS_URL,
@@ -13,10 +13,22 @@ router.get('/', function(req, res, next) {
   /* GET teams listing just for the number */
   redisStorage.teams.all(function(err, teams){
     if(!err&&teams != null){
-      res.render('index', {teams: teams, users: [], title: ''});
+        tfl.tube.status()
+            .then(function(tubeStatus){
+                res.render('index', {teams: teams, users: [], title: '', tubeStatus: tubeStatus});
+            })
+            .catch(function(err){
+                res.render('index', {teams: teams, users: [], title: '', tubeStatus: []});
+            });
     }
     else{
-      res.render('index', { teams: [], users: []});
+        tfl.tube.status()
+            .then(function(tubeStatus){
+                res.render('index', { teams: [], users: [], tubeStatus: tubeStatus});
+            })
+            .catch(function(err){
+                res.render('index', {teams: [], users: [], title: '', tubeStatus: []});
+            });
     }
   });
 });

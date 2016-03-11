@@ -101,3 +101,42 @@ code{
     max-width: 1200px;
     margin: auto;
 }
+.demo-section{
+    width: 80%;
+    margin: auto;
+    display:inline-block;
+}
+.demo{
+    max-width: 100%;
+}
+.current-status{
+    width: 100%;
+    text-align: left;
+}
+.current-status-heading{
+    margin-top: 20px;
+}
+.status-indicator{
+    margin: 0;
+    margin-bottom: 5px;
+    display:inline-block;
+    width: 100%;
+}
+.incident-text{
+    color: #ca2657;
+}
+.good-service-text{
+    color: #4444aa;
+    float: right;
+    text-align: right
+}
+@media screen and (min-width: 768px){
+    .demo{
+        max-width: calc(100% - 300px);
+        float: left
+    }
+    .current-status{
+        width: 300px;
+        float: right;
+    }
+}
