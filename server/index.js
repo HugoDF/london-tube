@@ -33,7 +33,10 @@ router.get('/', function(req, res, next) {
   });
 });
 router.get('/privacy', function(req, res, next){
-    res.render('privacy-policy', {title: 'Privacy Policy'})
+    res.render('privacy-policy', {title: 'Privacy Policy'});
+});
+router.get('/support', function(req, res, next){
+    res.render('support', {title: 'Support'});
 });
 
 module.exports = router;

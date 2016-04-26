@@ -37,7 +37,7 @@ controller.setupWebserver((process.env.PORT || process.env.BOTKIT_PORT),function
     if (err) {
       res.status(500).send('ERROR: ' + err);
     } else {
-      res.send('Success!');
+      res.render('success', {title: 'Success!'});
     }
   });
   webserver.use(express.static(__dirname + '/public'));
